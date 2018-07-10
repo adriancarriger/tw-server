@@ -1,0 +1,44 @@
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+       - image: docker:18.05.0-ce-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Install CircleCI dependencies
+          command: |
+            apk add --no-cache curl curl-dev py-pip
+            pip install --upgrade pip
+            pip install docker-compose
+      - run:
+          name: Move repo into subfolder
+          command: |
+            cp -r /app/. ~/tw-server
+            mv -v ~/tw-server /app/tw-server
+      - run:
+          name: Clone tw-base
+          command: git clone --branch develop --depth 1 git@github.com:adriancarriger/tw-base.git
+      - run:
+          name: Get tw-* dependencies
+          command: ./tw-base/init.sh
+      - run:
+          name: Build Docker images
+          command: docker-compose -f ./tw-base/docker-compose.yml build
+      - run:
+           name: Start Docker
+           command: docker-compose -f ./tw-base/docker-compose.yml up -d
+      - run:
+           name: Run unit tests
+           command: docker-compose -f ./tw-base/docker-compose.yml exec yarn test
+      - run:
+           name: Wait for run-time generated files
+           command: |
+             docker-compose -f ./tw-base/docker-compose.yml exec \
+             server /bin/sh -c "./wait-for-file src/generated/prisma.ts"
