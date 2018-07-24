@@ -42,7 +42,7 @@ jobs:
       - run:
            name: Deploy
            command: |
-             echo $HEROKU_TOKEN | docker login --username=_ --password-stdin registry.heroku.com
+            docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
 
              if [[ $CIRCLE_BRANCH == "develop" ]]; then
                docker tag $(docker-compose images -q server) registry.heroku.com/tw-server-52/web
