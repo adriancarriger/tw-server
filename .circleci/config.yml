@@ -39,3 +39,17 @@ jobs:
            command: |
              docker-compose -f ./tw-base/docker-compose.yml exec \
              server /bin/sh -c "./wait-for-file src/generated/prisma.ts"
+      - run:
+           name: Deploy
+           command: |
+             echo $HEROKU_TOKEN | docker login --username=_ --password-stdin registry.heroku.com
+
+             if [[ $CIRCLE_BRANCH == "develop" ]]; then
+               docker tag $(docker-compose images -q server) registry.heroku.com/tw-server-52/web
+               docker push registry.heroku.com/tw-server-52/web
+             fi
+
+             if [[ $CIRCLE_BRANCH == "master" ]]; then
+               docker tag $(docker-compose images -q server) registry.heroku.com/tw-server-prod/web
+               docker push registry.heroku.com/tw-server-prod/web
+             fi
