@@ -42,14 +42,15 @@ jobs:
       - run:
            name: Deploy
            command: |
+            IMAGE_ID=$(docker-compose -f ./tw-base/docker-compose.yml images -q server)
             docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
 
              if [[ $CIRCLE_BRANCH == "develop" ]]; then
-               docker tag $(docker-compose images -q server) registry.heroku.com/tw-server-52/web
+               docker tag $IMAGE_ID registry.heroku.com/tw-server-52/web
                docker push registry.heroku.com/tw-server-52/web
              fi
 
              if [[ $CIRCLE_BRANCH == "master" ]]; then
-               docker tag $(docker-compose images -q server) registry.heroku.com/tw-server-prod/web
+               docker tag $IMAGE_ID registry.heroku.com/tw-server-prod/web
                docker push registry.heroku.com/tw-server-prod/web
              fi
