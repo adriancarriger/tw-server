@@ -12,7 +12,11 @@
     "sourceMap": true,
     "allowJs": true,
     "outDir": "./dist",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "lib": [
+      "es2018",
+      "esnext.asynciterable"
+    ]
   },
   "include": [
     "src/**/*"
