@@ -1,0 +1,26 @@
+{
+  "name": "tw-server",
+  "version": "0.0.0",
+  "description": "description",
+  "author": "",
+  "license": "MIT",
+  "main": "index.ts",
+  "scripts": {
+    "start": "yarn dev",
+    "serve:prod": "node src/index.js",
+    "dev": "nodemon --config config/nodemon.json",
+    "playground": "graphql playground",
+    "prisma": "prisma"
+  },
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "graphql-yoga": "1.14.12",
+    "prisma-binding": "2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3",
+    "prisma": "^1.12.0",
+    "ts-node": "7.0.0",
+    "typescript": "^2.9.2"
+  }
+}
