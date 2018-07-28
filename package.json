@@ -6,8 +6,9 @@
   "license": "MIT",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon --config config/nodemon.json",
-    "dev": "node src/index.js",
+    "start": "yarn dev",
+    "serve:prod": "node src/index.js",
+    "dev": "nodemon --config config/nodemon.json",
     "playground": "graphql playground",
     "prisma": "prisma"
   },

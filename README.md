@@ -1,6 +1,6 @@
 # tw-server
 
-A GraphQL server layer based on [nestjs](https://github.com/nestjs/nest)
+A GraphQL server layer
 
 [![Build Status](https://img.shields.io/circleci/project/github/adriancarriger/tw-server/develop.svg?maxAge=60)](https://circleci.com/gh/adriancarriger/tw-server)
 [![Dependency Status](https://img.shields.io/david/adriancarriger/tw-server/develop.svg?maxAge=60)](https://david-dm.org/adriancarriger/tw-server)
