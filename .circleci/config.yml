@@ -43,10 +43,17 @@ jobs:
            name: Deploy
            command: |
              export IMAGE_ID=$(docker-compose -f ./tw-base/docker-compose.yml images -q server)
+             export DATA_ENDPOINT_BASE=https://tw-data-52.herokuapp.com/app
              if [[ $CIRCLE_BRANCH == "develop" ]]; then
-               HEROKU_TARGET=tw-server-52 .circleci/deploy.sh
+               HEROKU_TARGET=tw-server-52 \
+                 PRISMA_DATA_ENDPOINT="$DATA_ENDPOINT_BASE/staging" \
+                 PRISMA_SECRET=$PRISMA_SECRET_STAGING \
+                 .circleci/deploy.sh
              fi
 
              if [[ $CIRCLE_BRANCH == "master" ]]; then
-               HEROKU_TARGET=tw-server-prod .circleci/deploy.sh
+               HEROKU_TARGET=tw-server-prod \
+                 PRISMA_DATA_ENDPOINT="$DATA_ENDPOINT_BASE/production" \
+                 PRISMA_SECRET=$PRISMA_SECRET_PRODUCTION \
+                 .circleci/deploy.sh
              fi
