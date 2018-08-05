@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "dotenv": "^6.0.0",
+    "graphql-shield": "^2.2.6",
     "graphql-yoga": "1.14.12",
     "prisma-binding": "2.1.0"
   },
