@@ -2,7 +2,7 @@
   "name": "tw-server",
   "version": "0.0.0",
   "description": "description",
-  "author": "",
+  "author": "Adrian Carriger <hello@adriancarriger.com> (http://adriancarriger.com)",
   "license": "MIT",
   "main": "index.ts",
   "scripts": {
