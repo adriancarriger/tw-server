@@ -11,3 +11,7 @@ type Mutation {
   deletePost(id: ID!): Post
   publish(id: ID!): Post
 }
+
+type Subscription {
+  feed: PostSubscriptionPayload
+}

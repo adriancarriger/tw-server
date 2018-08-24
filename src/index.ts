@@ -1,8 +1,10 @@
 import { GraphQLServer } from 'graphql-yoga';
 import * as dotenv from 'dotenv';
+import * as cors from 'cors';
 
 import { Prisma } from './generated/prisma';
 import { resolvers } from './resolvers';
+import { jwtCheck } from './auth/authentication';
 
 // Load .env
 dotenv.config();
@@ -22,5 +24,8 @@ const server = new GraphQLServer({
     })
   })
 });
+
+server.express.use(cors());
+server.express.post(server.options.endpoint, jwtCheck);
 
 server.start({ port: PORT }, () => console.log(`Server is running on http://localhost:${PORT}`));
